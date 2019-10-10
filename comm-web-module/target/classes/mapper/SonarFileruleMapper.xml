@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.webui.mapper.SonarFileruleMapper">
+  <resultMap id="BaseResultMap" type="com.it.webui.model.SonarFilerule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="rule" jdbcType="VARCHAR" property="rule" />
+    <result column="severity" jdbcType="VARCHAR" property="severity" />
+    <result column="issuetype" jdbcType="VARCHAR" property="issuetype" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+  </resultMap>
+  
+  <resultMap id="FileRuleMap" type="com.it.webui.vo.FileRuleVo">
+	<result column="project_name" jdbcType="VARCHAR" property="projectName" />
+	<result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="rule" jdbcType="VARCHAR" property="rule" />
+    <result column="severity" jdbcType="VARCHAR" property="severity" />
+    <result column="issuetype" jdbcType="VARCHAR" property="issuetype" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  
+  <select id="getTopViolas" parameterType="java.lang.String" resultMap="FileRuleMap">
+  	select * from(
+	  	select rule,message,severity,count(rule) count
+	  	from sonar_filerule
+	  	where 1=1
+	  	<if test="severity!=null and severity!=''">
+	  		and severity=#{severity}
+	  	</if>
+	  	group by rule
+	  	order by count desc
+  	) a where a.count>10
+  </select>
+  
+  <select id="getTopFiles" parameterType="java.lang.String" resultMap="FileRuleMap">
+	 select * from(
+	  	SELECT filename,project_name,severity,COUNT(rule) COUNT
+	  	FROM sonar_filerule fr JOIN svn_project sp ON fr.`project_id`=sp.`id`
+	  	WHERE 1=1
+	  	<if test="severity!=null and severity!=''">
+	  		and severity=#{severity}
+	  	</if>
+	  	GROUP BY filename
+	  	ORDER BY count DESC
+  	) a where a.count>10
+  </select>
+  
+  <select id="getSeverityTotal" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	
+  </select>
+
+</mapper>

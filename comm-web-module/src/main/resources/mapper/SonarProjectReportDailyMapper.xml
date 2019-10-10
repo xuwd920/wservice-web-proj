@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.webui.mapper.SonarProjectReportDailyMapper">
+  <resultMap id="BaseResultMap" type="com.it.webui.model.SonarProjectReportDaily">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="collect_date" jdbcType="VARCHAR" property="collectDate" />
+    <result column="files" jdbcType="INTEGER" property="files" />
+    <result column="lines" jdbcType="INTEGER" property="lines" />
+    <result column="ncloc" jdbcType="INTEGER" property="ncloc" />
+    <result column="comment_lines" jdbcType="INTEGER" property="commentLines" />
+    <result column="comment_lines_density" jdbcType="REAL" property="commentLinesDensity" />
+    <result column="directories" jdbcType="INTEGER" property="directories" />
+    <result column="classes" jdbcType="INTEGER" property="classes" />
+    <result column="statements" jdbcType="INTEGER" property="statements" />
+    <result column="functions" jdbcType="INTEGER" property="functions" />
+    <result column="code_smells" jdbcType="INTEGER" property="codeSmells" />
+    <result column="bugs" jdbcType="INTEGER" property="bugs" />
+    <result column="vulnerabilities" jdbcType="INTEGER" property="vulnerabilities" />
+    <result column="lines_to_cover" jdbcType="INTEGER" property="linesToCover" />
+    <result column="uncovered_lines" jdbcType="INTEGER" property="uncoveredLines" />
+    <result column="coverage" jdbcType="REAL" property="coverage" />
+    <result column="line_coverage" jdbcType="REAL" property="lineCoverage" />
+    <result column="test_success_density" jdbcType="REAL" property="testSuccessDensity" />
+    <result column="test_failures" jdbcType="INTEGER" property="testFailures" />
+    <result column="test_errors" jdbcType="INTEGER" property="testErrors" />
+    <result column="skipped_tests" jdbcType="INTEGER" property="skippedTests" />
+    <result column="duplicated_lines_density" jdbcType="REAL" property="duplicatedLinesDensity" />
+    <result column="duplicated_blocks" jdbcType="INTEGER" property="duplicatedBlocks" />
+    <result column="duplicated_files" jdbcType="INTEGER" property="duplicatedFiles" />
+    <result column="duplicated_lines" jdbcType="INTEGER" property="duplicatedLines" />
+    <result column="blocker_violations" jdbcType="INTEGER" property="blockerViolations" />
+    <result column="critical_violations" jdbcType="INTEGER" property="criticalViolations" />
+    <result column="major_violations" jdbcType="INTEGER" property="majorViolations" />
+    <result column="minor_violations" jdbcType="INTEGER" property="minorViolations" />
+    <result column="info_violations" jdbcType="INTEGER" property="infoViolations" />
+    <result column="new_lines" jdbcType="INTEGER" property="newLines" />
+    <result column="violations" jdbcType="INTEGER" property="violations" />
+    <result column="sqale_index" jdbcType="INTEGER" property="sqaleIndex" />
+    <result column="complexity" jdbcType="INTEGER" property="complexity" />
+    <result column="cognitive_complexity" jdbcType="INTEGER" property="cognitiveComplexity" />
+    <result column="new_minor_violations" jdbcType="INTEGER" property="newMinorViolations" />
+    <result column="new_critical_violations" jdbcType="INTEGER" property="newCriticalViolations" />
+    <result column="new_major_violations" jdbcType="INTEGER" property="newMajorViolations" />
+    <result column="new_reliability_rating" jdbcType="REAL" property="newReliabilityRating" />
+    <result column="new_blocker_violations" jdbcType="INTEGER" property="newBlockerViolations" />
+    <result column="new_lines_to_cover" jdbcType="INTEGER" property="newLinesToCover" />
+    <result column="new_technical_debt" jdbcType="INTEGER" property="newTechnicalDebt" />
+    <result column="new_info_violations" jdbcType="INTEGER" property="newInfoViolations" />
+    <result column="new_uncovered_lines" jdbcType="INTEGER" property="newUncoveredLines" />
+    <result column="new_reliability_remediation_effort" jdbcType="INTEGER" property="newReliabilityRemediationEffort" />
+    <result column="new_violations" jdbcType="INTEGER" property="newViolations" />
+    <result column="new_duplicated_blocks" jdbcType="INTEGER" property="newDuplicatedBlocks" />
+    <result column="new_conditions_to_cover" jdbcType="INTEGER" property="newConditionsToCover" />
+    <result column="new_sqale_debt_ratio" jdbcType="REAL" property="newSqaleDebtRatio" />
+    <result column="new_uncovered_conditions" jdbcType="INTEGER" property="newUncoveredConditions" />
+    <result column="new_security_rating" jdbcType="REAL" property="newSecurityRating" />
+    <result column="new_vulnerabilities" jdbcType="INTEGER" property="newVulnerabilities" />
+    <result column="new_bugs" jdbcType="INTEGER" property="newBugs" />
+    <result column="new_duplicated_lines" jdbcType="INTEGER" property="newDuplicatedLines" />
+    <result column="new_code_smells" jdbcType="INTEGER" property="newCodeSmells" />
+    <result column="new_maintainability_rating" jdbcType="REAL" property="newMaintainabilityRating" />
+    <result column="new_security_remediation_effort" jdbcType="INTEGER" property="newSecurityRemediationEffort" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap id="ChartProjectMap" type="com.it.webui.vo.ChartProjectVo" >
+  	<result column="group_id" jdbcType="INTEGER" property="groupId" />
+  	<result column="group_name" jdbcType="VARCHAR" property="groupName" />
+  	<result column="project_id" jdbcType="INTEGER" property="projectId" />
+  	<result column="project_name" jdbcType="VARCHAR" property="projectName" />
+   	<result column="collect_date" jdbcType="VARCHAR" property="collectDate" />
+  	<result column="code_smells" jdbcType="INTEGER" property="codeSmells" />
+    <result column="bugs" jdbcType="INTEGER" property="bugs" />
+    <result column="vulnerabilities" jdbcType="INTEGER" property="vulnerabilities" />
+    <result column="blocker_violations" jdbcType="INTEGER" property="blockerViolations" />
+    <result column="critical_violations" jdbcType="INTEGER" property="criticalViolations" />
+    <result column="major_violations" jdbcType="INTEGER" property="majorViolations" />
+    <result column="minor_violations" jdbcType="INTEGER" property="minorViolations" />
+    <result column="info_violations" jdbcType="INTEGER" property="infoViolations" />
+    <result column="violations" jdbcType="INTEGER" property="violations" />
+  </resultMap>
+
+  <select id="getProjectChart" resultMap="ChartProjectMap">
+  	SELECT collect_date,group_name,p.group_id,
+  	SUM(new_bugs) bugs,SUM(new_code_smells) code_smells,SUM(new_vulnerabilities) vulnerabilities,
+  	sum(new_blocker_violations) blocker_violations,sum(new_critical_violations) critical_violations,sum(new_major_violations) major_violations,
+  	sum(new_minor_violations) minor_violations,sum(new_info_violations) info_violations,sum(new_violations) violations
+	FROM sonar_project_report_daily pd JOIN svn_project p
+	ON pd.`project_id`=p.`id`
+	JOIN svn_project_group g 
+	ON p.`group_id`=g.`group_id`
+	where 1=1
+	GROUP BY collect_date,p.group_id	
+  </select>
+  
+  <select id="getProjectChartByGroupId" resultMap="ChartProjectMap" parameterType="int">
+  	SELECT collect_date,p.id projectId,p.project_name
+  	SUM(new_bugs) bugs,SUM(new_code_smells) code_smells,SUM(new_vulnerabilities) vulnerabilities,
+  	sum(new_blocker_violations) blocker_violations,sum(new_critical_violations) critical_violations,sum(new_major_violations) major_violations,
+  	sum(new_minor_violations) minor_violations,sum(new_info_violations) info_violations,sum(new_violations) violations
+	FROM sonar_project_report_daily pd JOIN svn_project p
+	ON pd.`project_id`=p.`id`
+	JOIN svn_project_group g 
+	ON p.`group_id`=g.`group_id`
+	where 1=1
+	<if test="groupId>0">
+		and p.group_id=#{groupId}
+	</if>
+	GROUP BY collect_date,p.id	
+	
+  </select>
+  
+</mapper>

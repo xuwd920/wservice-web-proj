@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.it.webui.mapper.SvnProjectGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.it.webui.model.SvnProjectGroup" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="group_path" property="groupPath" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+        group_id, group_name, group_path, description, creator, create_time
+  </sql>
+  
+  <select id="selectProjectGroups" parameterType="com.it.webui.model.SvnProjectGroup" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  	from svn_project_group
+  	where 1=1
+  	<if test="groupName!=null and groupName!='' ">
+  		and group_name like concat('%', #{groupName}, '%')
+  	</if>
+  	<if test="creator!=null and creator!=''">
+  		and creator=#{creator}
+  	</if>
+  </select>
+  
+  
+</mapper>

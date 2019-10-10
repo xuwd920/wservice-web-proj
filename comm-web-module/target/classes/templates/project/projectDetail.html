@@ -1,0 +1,119 @@
+<form class="form-horizontal" id="projectDetailForm">
+    <input class="hidden" name="projectId" th:value="${project.id}">
+	<div class="box-body">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">子项目名称 <span style="color: red">*</span>:</label>
+			<div class="col-sm-8">
+				<input name="projectName" class="form-control" min="3" require="必填项" th:value="${project.projectName}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">artifactId<span style="color: red">*</span>:</label>
+			<div class="col-sm-8">
+				<input name="artifactid" class="form-control" min="3" require="必填项" th:value="${project.artifactid}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">所属项目组<span style="color: red">*</span>:</label>
+			<div class="col-sm-8">
+			<input class="hidden" id="tmpGroupId" th:value="${project.groupId}">
+				<select name="groupId" id="groupSelect" class="form-control" >			
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">SVN路径 <span	style="color: red">*</span>:</label>
+			<div class="col-sm-8">
+				<input name="svnPath" class="form-control" min="3" require="必填项"	 th:value="${project.svnPath}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">子项目类型 :</label>
+			<div class="col-sm-8">
+				<select name="projectType" class="form-control"  th:selected="${project.projectType}">
+					<option value="1">Maven</option>
+					<option value="2">Gradle</option>
+					<option value="9">其他</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">扫描周期（小时） :</label>
+			<div class="col-sm-8">
+				<input name="checkCycle" class="form-control"  th:value="${project.checkCycle}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">子项目描述 :</label>
+			<div class="col-sm-8">
+				<textarea name="description" class="form-control" rows="3"  th:value="${project.description}"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">编译环境 :</label>
+			<div class="col-sm-8">
+				<input name="remotePath" class="form-control" th:value="${project.remotePath}"></input>
+			</div>
+		</div>
+	</div>
+	<!-- /.box-body -->
+    <div class="box-footer">
+        <div class="pull-right">
+            <button type="button" id="saveDetailUser" class="btn btn-info">确定</button>
+            <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        </div>
+    </div>
+    <!-- /.box-footer -->
+</form>
+<script>
+    $(function () {
+    	//加载项目组
+    	loadGroupInfo();
+        $("#saveDetailUser").on('click', function () {
+            if (doValidForm(userDetailForm)) {
+                Core.mask("#saveDetailUser");
+                Core.postAjax("/user/edit",$("#userDetailForm").serialize(),function (data) {
+                    if (data.status == 200) {
+                        Core.unmask("#saveDetailUser");
+                        $("#userDetailModal").modal("hide");
+                        $("#myModal").modal("hide");
+                        Core.refreshTable("#table",true);
+                    }
+                    layer.msg(data.msg);
+                })
+            }
+        });
+    });
+    
+    
+  //加载项目组列表
+    function loadGroupInfo(){
+	  	var tmpGroupId =  $("#tmpGroupId").val();
+    	$.ajax({
+            url : "/project/loadAllGroup",    //后台controller中的请求路径
+            type : 'POST',
+            async : true,
+            datatype : 'json',
+            success : function(data) {
+                if(data){
+                    var groupOptions =[];
+                    groupOptions.push('<option  value="0">请选择</option>') 
+                    for(var i=0,len=data.length;i<len;i++){
+                        var group = data[i];
+　　　　　　　　　　　　　//拼接成多个<option><option/>
+						if(group.groupId==tmpGroupId){
+							groupOptions.push('<option value="'+group.groupId+'" selected>'+group.groupName+'</option>') 
+						}else{							
+　　　　　　　　　　　　　	groupOptions.push('<option value="'+group.groupId+'" >'+group.groupName+'</option>') 
+						}
+						
+                   }
+                    $("#groupSelect").html(groupOptions.join(' '));    //根据groupId(根据你自己的ID写)填充到select标签中
+                }
+            },
+            error : function() {
+                alert('获取项目组出错');
+            }
+        });
+    }
+</script>

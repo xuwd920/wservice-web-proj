@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.it.webui.mapper.SvnProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.it.webui.model.SvnProject" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="artifactId" property="artifactid" jdbcType="VARCHAR" />
+    <result column="svn_path" property="svnPath" jdbcType="VARCHAR" />
+    <result column="project_type" property="projectType" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="check_cycle" property="checkCycle" jdbcType="VARCHAR" />
+    <result column="remote_path" property="remotePath" jdbcType="VARCHAR" />
+    <result column="remote_ip" property="remoteIp" jdbcType="VARCHAR" />
+    <result column="remote_port" property="remotePort" jdbcType="VARCHAR" />
+    <result column="remote_user" property="remoteUser" jdbcType="VARCHAR" />
+    <result column="remote_password" property="remotePassword" jdbcType="VARCHAR" />
+    <result column="env_file" property="envFile" jdbcType="VARCHAR" />
+    <result column="last_checktime" property="lastChecktime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+        id, project_name, artifactId, svn_path, project_type, description, check_cycle, remote_path,
+         remote_ip, remote_port,remote_user,remote_password,env_file,last_checktime
+        create_time, update_time, creator,group_id
+  </sql>
+  
+  <select id="selectProjects" resultMap="BaseResultMap" parameterType="com.it.webui.model.SvnProject">
+  	select <include refid="Base_Column_List" />
+  	from svn_project
+  	where 1=1
+  	<if test="projectName!=null and projectName!='' ">
+  		and project_name like concat('%', #{projectName}, '%')
+  	</if>
+  	<if test="artifactid!=null and artifactid!=''">
+  		and artifactid like concat('%', #{artifactId}, '%')
+  	</if>
+  	<if test="creator!=null and creator!=''">
+  		and creator=#{creator}
+  	</if>
+  </select>
+  
+  <select id="selectByProjectId"  resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from svn_project
+  	where id=#{id,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateByProjectId">
+  	update project set svn_project_name=#{projectName},artifactId=#{artifactid},svn_path=#{svnPath},project_type=#{projectType},description=#{description},check_cycle=#{checkCycle},,update_time = now()
+  	where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteProjectBatch">
+  	delete from svn_project
+  	where  id in
+    <foreach collection="projectIds" item="item" index="index" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
+  </delete>
+  
+</mapper>

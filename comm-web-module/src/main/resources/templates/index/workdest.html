@@ -1,0 +1,113 @@
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <!--<li><a href="#">line1</a></li>-->
+        <li class="active">工作台</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<div class="box-header with-border">
+					<div class="col-md-12 col-sm-6 col-xs-12">
+				        <div>
+				            <h3 class="box-title">项目总体统计</h3>
+				        </div>
+			        </div>
+		        </div>
+		        <div class="box-body">
+		        	<div class="row">
+		        		<div class="col-md-12">
+				            <!-- 为所有项目组整体统计 -->
+				    		<table id="tblGroupStatistics"></table>	        		
+		        		</div>
+
+		        	</div>
+		        	
+		        </div>
+	    	</div>
+		</div>
+	</div>
+    </div>
+</section>
+<script th:src="@{/libs/echarts/echarts.js}"></script>
+
+<script>
+var columns = [
+   			{
+   				field : 'groupName',
+   				title : '项目组名称',
+   				align : "center",
+   				width : '10%'
+   			},
+   			{
+   				field : 'files',
+   				title : '文件数',
+   				align : "center",
+   				width : '8%'
+   			},
+   			{
+   				field : 'bugs',
+   				title : 'bug总数',
+   				align : "center",
+   				width : '8%'
+   			},
+   			{
+   				field : 'vulnerabilities',
+   				title : '漏洞数',
+   				align : "center",
+   				width : '8%'
+   			},
+   			{
+   				field : 'codeSmells',
+   				title : '坏味道数',
+   				align : "center",
+   				width : '8%'
+   			},
+   			{
+   				field : 'complexity',
+   				title : '违规总数',
+   				align : "center",
+   				width : '10%'
+   			},
+   			{
+   				field : 'complexity',
+   				title : '复杂度',
+   				align : "center",
+   				width : '8%'
+   			},
+   			{
+   				field : 'cognitiveComplexity',
+   				title : '认知复杂度',
+   				align : "center",
+   				width : '8%'
+   			},
+   			{
+   				field : 'sqaleIndex',
+   				title : '技术债务',
+   				align : "center",
+   				width : '10%',
+   				formatter:timeStamp
+   			} ];
+   	var tablOptions = {
+   		id : "#tblGroupStatistics",
+   		url : '/chart/projectData',
+   		columns : columns,
+   		pagination : true,
+   		pageNumber: 1,
+           pageSize: 5,
+   		queryParams : queryParamsMethod
+   	}
+   	Core.initTable(tablOptions);
+   	/*查询项目参数*/
+   	function queryParamsMethod(params) {
+   		var temp = { //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+   			limit : params.limit, //页面大小
+   			offset : params.offset
+   		//页码
+   		};
+   		return temp;
+   	}
+</script>

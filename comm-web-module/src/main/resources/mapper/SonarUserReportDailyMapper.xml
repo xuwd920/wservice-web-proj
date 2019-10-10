@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.webui.mapper.SonarUserReportDailyMapper">
+  <resultMap id="BaseResultMap" type="com.it.webui.model.SonarUserReportDaily">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="collect_date" jdbcType="VARCHAR" property="collectDate" />
+    <result column="files_count" jdbcType="INTEGER" property="filesCount" />
+    <result column="lines_count" jdbcType="INTEGER" property="linesCount" />
+    <result column="ncloc_count" jdbcType="INTEGER" property="nclocCount" />
+    <result column="comment_lines_count" jdbcType="INTEGER" property="commentLinesCount" />
+    <result column="comment_lines_density_avg" jdbcType="REAL" property="commentLinesDensityAvg" />
+    <result column="directories_count" jdbcType="INTEGER" property="directoriesCount" />
+    <result column="classes_count" jdbcType="INTEGER" property="classesCount" />
+    <result column="statements_count" jdbcType="INTEGER" property="statementsCount" />
+    <result column="functions_count" jdbcType="INTEGER" property="functionsCount" />
+    <result column="code_smells_count" jdbcType="INTEGER" property="codeSmellsCount" />
+    <result column="bugs_count" jdbcType="INTEGER" property="bugsCount" />
+    <result column="vulnerabilities_count" jdbcType="INTEGER" property="vulnerabilitiesCount" />
+    <result column="coverage_avg" jdbcType="REAL" property="coverageAvg" />
+    <result column="line_coverage_avg" jdbcType="REAL" property="lineCoverageAvg" />
+    <result column="test_success_density_avg" jdbcType="REAL" property="testSuccessDensityAvg" />
+    <result column="lines_to_cover_count" jdbcType="INTEGER" property="linesToCoverCount" />
+    <result column="uncovered_lines_count" jdbcType="INTEGER" property="uncoveredLinesCount" />
+    <result column="test_failures_count" jdbcType="INTEGER" property="testFailuresCount" />
+    <result column="test_errors_count" jdbcType="INTEGER" property="testErrorsCount" />
+    <result column="skipped_tests_count" jdbcType="INTEGER" property="skippedTestsCount" />
+    <result column="duplicated_lines_density_avg" jdbcType="REAL" property="duplicatedLinesDensityAvg" />
+    <result column="duplicated_blocks_count" jdbcType="INTEGER" property="duplicatedBlocksCount" />
+    <result column="duplicated_files_count" jdbcType="INTEGER" property="duplicatedFilesCount" />
+    <result column="duplicated_lines_count" jdbcType="INTEGER" property="duplicatedLinesCount" />
+    <result column="blocker_violations_count" jdbcType="INTEGER" property="blockerViolationsCount" />
+    <result column="critical_violations_count" jdbcType="INTEGER" property="criticalViolationsCount" />
+    <result column="major_violations_count" jdbcType="INTEGER" property="majorViolationsCount" />
+    <result column="minor_violations_count" jdbcType="INTEGER" property="minorViolationsCount" />
+    <result column="info_violations_count" jdbcType="INTEGER" property="infoViolationsCount" />
+    <result column="new_lines_count" jdbcType="INTEGER" property="newLinesCount" />
+    <result column="violations_count" jdbcType="INTEGER" property="violationsCount" />
+    <result column="sqale_index_count" jdbcType="INTEGER" property="sqaleIndexCount" />
+    <result column="complexity_count" jdbcType="INTEGER" property="complexityCount" />
+    <result column="cognitive_complexity_count" jdbcType="INTEGER" property="cognitiveComplexityCount" />
+    <result column="new_major_violations_count" jdbcType="INTEGER" property="newMajorViolationsCount" />
+    <result column="new_minor_violations_count" jdbcType="INTEGER" property="newMinorViolationsCount" />
+    <result column="new_critical_violations_count" jdbcType="INTEGER" property="newCriticalViolationsCount" />
+    <result column="new_reliability_rating_avg" jdbcType="REAL" property="newReliabilityRatingAvg" />
+    <result column="new_blocker_violations_count" jdbcType="INTEGER" property="newBlockerViolationsCount" />
+    <result column="new_lines_to_cover_count" jdbcType="INTEGER" property="newLinesToCoverCount" />
+    <result column="new_technical_debt_count" jdbcType="INTEGER" property="newTechnicalDebtCount" />
+    <result column="new_info_violations_count" jdbcType="INTEGER" property="newInfoViolationsCount" />
+    <result column="new_uncovered_lines_count" jdbcType="INTEGER" property="newUncoveredLinesCount" />
+    <result column="new_reliability_remediation_effort_count" jdbcType="INTEGER" property="newReliabilityRemediationEffortCount" />
+    <result column="new_violations_count" jdbcType="INTEGER" property="newViolationsCount" />
+    <result column="new_duplicated_blocks_count" jdbcType="INTEGER" property="newDuplicatedBlocksCount" />
+    <result column="new_conditions_to_cover_count" jdbcType="INTEGER" property="newConditionsToCoverCount" />
+    <result column="new_sqale_debt_ratio_avg" jdbcType="REAL" property="newSqaleDebtRatioAvg" />
+    <result column="new_uncovered_conditions_count" jdbcType="INTEGER" property="newUncoveredConditionsCount" />
+    <result column="new_security_rating_avg" jdbcType="REAL" property="newSecurityRatingAvg" />
+    <result column="new_vulnerabilities_count" jdbcType="INTEGER" property="newVulnerabilitiesCount" />
+    <result column="new_bugs_count" jdbcType="INTEGER" property="newBugsCount" />
+    <result column="new_duplicated_lines_count" jdbcType="INTEGER" property="newDuplicatedLinesCount" />
+    <result column="new_code_smells_count" jdbcType="INTEGER" property="newCodeSmellsCount" />
+    <result column="new_maintainability_rating_avg" jdbcType="REAL" property="newMaintainabilityRatingAvg" />
+    <result column="new_security_remediation_effort_count" jdbcType="INTEGER" property="newSecurityRemediationEffortCount" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+ 
+ <select id="getUserNewestDatas"  resultMap="BaseResultMap">
+  		SELECT 
+		  su.author,collect_date,files_count,ncloc_count,code_smells_count,
+		  bugs_count,vulnerabilities_count,complexity_count,cognitive_complexity_count,
+		  sqale_index_count,violations_count
+		FROM
+		  sonar_user_report_daily su 
+		  JOIN 
+		    (SELECT author,MAX(collect_date) max_date FROM sonar_user_report_daily GROUP BY author) b 
+		    ON su.author = b.author 
+		    AND su.collect_date = b.max_date 
+		GROUP BY su.author 
+ 
+  </select>
+  
+    <select id="getUserChart" resultMap="BaseResultMap">
+		SELECT collect_date,author,
+	  	SUM(bugs_count) bugs_count,SUM(code_smells_count) code_smells_count,SUM(vulnerabilities_count) vulnerabilities_count,
+	  	SUM(blocker_violations_count) blocker_violations_count,SUM(critical_violations_count) critical_violations_count,
+	  	SUM(major_violations_count) major_violations_count,
+	  	SUM(minor_violations_count) minor_violations_count,SUM(info_violations_count) info_violations_count,
+	  	SUM(violations_count) violations_count
+		FROM sonar_user_report_daily
+		WHERE 1=1 
+		AND collect_date > (SELECT DATE_SUB(MAX(collect_date),INTERVAL 1 WEEK) FROM sonar_user_report_daily)
+		GROUP BY collect_date,author
+		ORDER BY collect_date DESC,author	
+  </select>
+ 
+</mapper>
