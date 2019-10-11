@@ -28,7 +28,7 @@ spring:
   redis:
     host: 106.13.33.27
     port: 6379
-    password:
+    password: hadoop
     timeout: 0
     jedis:
       pool:
